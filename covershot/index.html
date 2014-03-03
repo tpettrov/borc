@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+  <!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Covershot: Home</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/covershot.css">
+    <script src="scripts/jquery-1.7.1.min.js"></script>
+    <script src="scripts/jquery.tablesort.js"></script>
+    <script>
+      window.onscroll = function () {
+        document.querySelectorAll('#topContainer')[0].className = (window.scrollY !== 0) ? 'shadowed' : '';
+      };
+    </script>
+  </head>
+  <body>
+    <div id="topContainer">
+      <div id="topBar">
+        <div id="topBarContent">
+          <p class="left">Covershot</p> 
+          <p class="right"><a href="index.html" class="selectedFeature">Coverage</a><a href="hotspots.html">Hotspots</a></p>
+        </div>
+      </div>
+      <div id="bottomBar">
+        <div class="holder">
+          <ul class="summary">
+            <li>
+              <span class="coverageData">10</span>
+              <p>files</p>
+            </li>
+            <li>
+              <span class="coverageData">1090</span>
+              <p>hits</p>
+            </li>
+            <li>
+              <span class="coverageData">40</span>
+              <p>misses</p>
+            </li>
+            <li>
+              <span class="coverageData">1130</span>
+              <p>SLoC</p>
+            </li>
+            <li>
+              <span class="coverageData">96.5%</span>
+              <p>coverage</p> 
+            </li>
+            <li>
+              <svg width="45" height="45">  <defs>   <filter id="dropshadow" width="17.5" height="17.5">    <feGaussianBlur stdDeviation="4"/>   </filter>  </defs>  <path d="M22.5,22.5 L22.5,5 A17.5,17.5 0 1,1 18.63751188522852,5.431573430358348 z"    style="fill:#58E43E;    fill-opacity: 1;"/>  <path d="M22.5,22.5 L18.63751188522852,5.431573430358348 A17.5,17.5  0 0,1 22.5,5 z"    style="fill:#FF2E2E;    fill-opacity: 1;"/></svg> 
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="bodyWrapper">
+      <section id="bod">
+        <section id="mainContent">
+          <table id="files">
+            <thead>
+              <tr>
+                <th>Files</th>
+                <th class="number">Hits</th>
+                <th class="number">Misses</th>
+                <th class="number">SLoC</th>
+                
+                  <th class="number"><span title="Maintainability Index">MI</span></th>
+                
+                <th>Coverage</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+              <tr>
+                <td>
+                  <a href="src/BufferStream.js.html">BufferStream.js</a>
+                </td>
+                <td>
+                  <p>218</p>
+                </td>
+                <td>
+                  <p>19</p>
+                </td>
+                <td>
+                  <p>237</p>
+                </td>
+                
+                  <td>
+                    <p>63.885</p>
+                  </td>
+                
+                <td data-sort-value="92">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 92%"></div>
+                  </div>
+                  <p class="coverageParagraph">92%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/evented.js.html">evented.js</a>
+                </td>
+                <td>
+                  <p>236</p>
+                </td>
+                <td>
+                  <p>9</p>
+                </td>
+                <td>
+                  <p>245</p>
+                </td>
+                
+                  <td>
+                    <p>?</p>
+                  </td>
+                
+                <td data-sort-value="96">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 96%"></div>
+                  </div>
+                  <p class="coverageParagraph">96%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/diagnose.js.html">diagnose.js</a>
+                </td>
+                <td>
+                  <p>141</p>
+                </td>
+                <td>
+                  <p>5</p>
+                </td>
+                <td>
+                  <p>146</p>
+                </td>
+                
+                  <td>
+                    <p>?</p>
+                  </td>
+                
+                <td data-sort-value="97">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 97%"></div>
+                  </div>
+                  <p class="coverageParagraph">97%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/encoder.js.html">encoder.js</a>
+                </td>
+                <td>
+                  <p>199</p>
+                </td>
+                <td>
+                  <p>5</p>
+                </td>
+                <td>
+                  <p>204</p>
+                </td>
+                
+                  <td>
+                    <p>?</p>
+                  </td>
+                
+                <td data-sort-value="98">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 98%"></div>
+                  </div>
+                  <p class="coverageParagraph">98%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/decoder.js.html">decoder.js</a>
+                </td>
+                <td>
+                  <p>138</p>
+                </td>
+                <td>
+                  <p>2</p>
+                </td>
+                <td>
+                  <p>140</p>
+                </td>
+                
+                  <td>
+                    <p>71.126</p>
+                  </td>
+                
+                <td data-sort-value="99">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 99%"></div>
+                  </div>
+                  <p class="coverageParagraph">99%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/cbor.js.html">cbor.js</a>
+                </td>
+                <td>
+                  <p>10</p>
+                </td>
+                <td>
+                  <p>0</p>
+                </td>
+                <td>
+                  <p>10</p>
+                </td>
+                
+                  <td>
+                    <p>110.32</p>
+                  </td>
+                
+                <td data-sort-value="100">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 100%"></div>
+                  </div>
+                  <p class="coverageParagraph">100%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/constants.js.html">constants.js</a>
+                </td>
+                <td>
+                  <p>50</p>
+                </td>
+                <td>
+                  <p>0</p>
+                </td>
+                <td>
+                  <p>50</p>
+                </td>
+                
+                  <td>
+                    <p>83.256</p>
+                  </td>
+                
+                <td data-sort-value="100">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 100%"></div>
+                  </div>
+                  <p class="coverageParagraph">100%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/simple.js.html">simple.js</a>
+                </td>
+                <td>
+                  <p>18</p>
+                </td>
+                <td>
+                  <p>0</p>
+                </td>
+                <td>
+                  <p>18</p>
+                </td>
+                
+                  <td>
+                    <p>101.59</p>
+                  </td>
+                
+                <td data-sort-value="100">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 100%"></div>
+                  </div>
+                  <p class="coverageParagraph">100%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/tagged.js.html">tagged.js</a>
+                </td>
+                <td>
+                  <p>17</p>
+                </td>
+                <td>
+                  <p>0</p>
+                </td>
+                <td>
+                  <p>17</p>
+                </td>
+                
+                  <td>
+                    <p>104.01</p>
+                  </td>
+                
+                <td data-sort-value="100">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 100%"></div>
+                  </div>
+                  <p class="coverageParagraph">100%</p>
+                </td>
+              </tr>
+              
+              <tr>
+                <td>
+                  <a href="src/utils.js.html">utils.js</a>
+                </td>
+                <td>
+                  <p>63</p>
+                </td>
+                <td>
+                  <p>0</p>
+                </td>
+                <td>
+                  <p>63</p>
+                </td>
+                
+                  <td>
+                    <p>84.246</p>
+                  </td>
+                
+                <td data-sort-value="100">
+                  <div class="smplContainer">
+                    <div class="smplSubject" style="width: 100%"></div>
+                  </div>
+                  <p class="coverageParagraph">100%</p>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </section>
+      </section>
+    </div>
+    <footer>
+      <p>Report generated by <a href="https://github.com/nearinfinity/node-covershot">Covershot</a> on Mon Mar 03 2014 16:50:05 GMT+0000 (GMT).</p>
+    </footer>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('thead th.number').data('sortBy', function(th, td, tablesort) {
+          return parseInt(td.text(), 10);
+        });
+        $('table').tablesort({
+          width: 100,
+          initSort: {
+            index: 2,
+            direction: 'desc'
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
+
+</html>
