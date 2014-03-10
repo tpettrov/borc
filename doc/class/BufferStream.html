@@ -474,7 +474,8 @@ unit tests.</p>
       <br>
     </p>
     <div class='docstring'>
-  <p>if bsInit, defaults to <code>true</code>, else ignored</p>
+  <p>if bsInit, defaults to <code>true</code>, else ignored
+    initialize it to zero (default: false)</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -524,6 +525,14 @@ unit tests.</p>
       </span>
       &mdash;
       <span class='desc'>after bsInit is appended, should we end the stream? </span>
+    </li>
+    <li>
+      <span class='name'>bsZero</span>
+      <span class='type'>
+        (<tt>Boolean</tt>)
+      </span>
+      &mdash;
+      <span class='desc'>whenever a new Buffer is added to the list, </span>
     </li>
   </ul>
 </div>
@@ -1258,7 +1267,7 @@ to the stream</p>
 </div>
     </div>
     <div id='footer'>
-  March 03, 14 16:48:57 by
+  March 10, 14 12:20:06 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
