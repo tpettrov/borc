@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta charset='UTF-8'>
-  <title>cbor API Documentation</title>
+  <title>API Documentation</title>
   <script src='../javascript/application.js'></script>
   <script src='../javascript/search.js'></script>
   <link rel='stylesheet' href='../stylesheets/application.css' type='text/css'>
@@ -11,8 +11,8 @@
     <div id='base' data-path='../'></div>
 <div id='header'>
   <div id='menu'>
-    <a href='../extra/README.md.html' title='node cbor'>
-      node cbor
+    <a href='../extra/README.md.html' title='Cbor'>
+      Cbor
     </a>
     &raquo;
     <a href='../alphabetical_index.html' title='Index'>
@@ -172,7 +172,7 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
         (<tt>Writable</tt>)
       </span>
       &mdash;
-      <span class='desc'>Writable stream to output diagnosis info (default: process.stdout) </span>
+      <span class='desc'>Writable stream to output diagnosis info into (default: process.stdout) </span>
     </li>
     <li>
       <span class='name'>done</span>
@@ -216,26 +216,26 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
     <li>
       <span class='name'>separator</span>
       <span class='type'>
-        (<tt>string</tt>)
+        (<tt>String</tt>)
       </span>
       &mdash;
-      <span class='desc'>between detected objects (default: &#39;\n&#39;) </span>
+      <span class='desc'>output between detected objects (default: &#39;\n&#39;) </span>
     </li>
     <li>
-      <span class='name'>where</span>
+      <span class='name'>output</span>
       <span class='type'>
         (<tt>Writable</tt>)
       </span>
       &mdash;
-      <span class='desc'>the output should go (default: process.stdout) </span>
+      <span class='desc'>where the output should go (default: process.stdout) </span>
     </li>
     <li>
-      <span class='name'>optional</span>
+      <span class='name'>input</span>
       <span class='type'>
         (<tt>Buffer,String,BufferStream</tt>)
       </span>
       &mdash;
-      <span class='desc'>input </span>
+      <span class='desc'>optional input </span>
     </li>
     <li>
       <span class='name'>encoding</span>
@@ -243,15 +243,15 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
         (<tt>String</tt>)
       </span>
       &mdash;
-      <span class='desc'>Encoding of a String <code>input</code> (default: &#39;hex&#39;) </span>
+      <span class='desc'>encoding of a String <code>input</code> (default: &#39;hex&#39;) </span>
     </li>
     <li>
-      <span class='name'>*byte*</span>
+      <span class='name'>offset</span>
       <span class='type'>
-        (<tt>offset</tt>)
+        (<tt>Integer</tt>)
       </span>
       &mdash;
-      <span class='desc'>offset into the input from which to start </span>
+      <span class='desc'><em>byte</em> offset into the input from which to start </span>
     </li>
   </ul>
 </div>
@@ -279,7 +279,7 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
 </div>
     </div>
     <div id='footer'>
-  March 10, 14 12:54:23 by
+  March 17, 14 23:34:18 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
