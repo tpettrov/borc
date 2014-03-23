@@ -421,7 +421,9 @@ unit tests.</p>
     <li>
       <span class='name'>obj</span>
       <span class='type'>
-        (<tt>Object</tt>)
+        (
+          <tt>Object</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the object to check </span>
@@ -430,7 +432,9 @@ unit tests.</p>
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span><tt>Boolean</tt></li>
+      <span class='type'></span>
+      <tt>Boolean</tt>
+    </li>
   </ul>
 </div>
   </div>
@@ -450,7 +454,9 @@ unit tests.</p>
     <li>
       <span class='name'>er</span>
       <span class='type'>
-        (<tt>Error</tt>)
+        (
+          <tt>Error</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the error object to check </span>
@@ -459,7 +465,9 @@ unit tests.</p>
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span><tt>Boolean</tt></li>
+      <span class='type'></span>
+      <tt>Boolean</tt>
+    </li>
   </ul>
 </div>
   </div>
@@ -479,7 +487,9 @@ unit tests.</p>
     <li>
       <span class='name'>options</span>
       <span class='type'>
-        (<tt>Object</tt>)
+        (
+          <tt>Object</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>can be as for stream, but also: </span>
@@ -493,7 +503,9 @@ unit tests.</p>
     <li>
       <span class='name'>bsInit</span>
       <span class='type'>
-        (<tt>Buffer</tt>)
+        (
+          <tt>Buffer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>initial buffer </span>
@@ -501,7 +513,9 @@ unit tests.</p>
     <li>
       <span class='name'>bsGrowSize</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the number of bytes to grow when needed (default: 512) </span>
@@ -509,7 +523,9 @@ unit tests.</p>
     <li>
       <span class='name'>bsStartEmpty</span>
       <span class='type'>
-        (<tt>Boolean</tt>)
+        (
+          <tt>Boolean</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>don&#39;t initialize with a growSize buffer (default: false) </span>
@@ -517,7 +533,9 @@ unit tests.</p>
     <li>
       <span class='name'>bsStartEnded</span>
       <span class='type'>
-        (<tt>Boolean</tt>)
+        (
+          <tt>Boolean</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>after bsInit is appended, should we end the stream? if bsInit, defaults to <code>true</code>, else ignored </span>
@@ -525,7 +543,9 @@ unit tests.</p>
     <li>
       <span class='name'>bsZero</span>
       <span class='type'>
-        (<tt>Boolean</tt>)
+        (
+          <tt>Boolean</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>whenever a new Buffer is added to the list, initialize it to zero (default: false) </span>
@@ -551,7 +571,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span><tt>Boolean</tt></li>
+      <span class='type'></span>
+      <tt>Boolean</tt>
+    </li>
   </ul>
 </div>
   </div>
@@ -571,7 +593,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
     <li>
       <span class='name'>length</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>number of bytes to read, up to <code>@length</code>. </span>
@@ -585,7 +609,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
     <li>
       <span class='name'>-1</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>get the first buffer </span>
@@ -593,7 +619,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
     <li>
       <span class='name'>0</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>read all </span>
@@ -615,7 +643,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span><tt>Boolean</tt></li>
+      <span class='type'></span>
+      <tt>Boolean</tt>
+    </li>
   </ul>
 </div>
   </div>
@@ -635,7 +665,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
     <li>
       <span class='name'>length</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>number of bytes to wait for </span>
@@ -643,7 +675,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
     <li>
       <span class='name'>cb</span>
       <span class='type'>
-        (<tt>function</tt>)
+        (
+          <tt>function</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>callback(error, buffer), where if the error is empty, the buffer will be exactly <code>length</code> bytes </span>
@@ -653,19 +687,25 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
   <ul class='throw'>
     <li>
       <span class='type'></span>
-      (<tt>Error</tt>)
+      (
+        <tt>Error</tt>
+      )
       &mdash;
       <span class='desc'>invalid state, a second wait() while one was already pending </span>
     </li>
     <li>
       <span class='type'></span>
-      (<tt>Error</tt>)
+      (
+        <tt>Error</tt>
+      )
       &mdash;
       <span class='desc'>invalid <code>length</code> </span>
     </li>
     <li>
       <span class='type'></span>
-      (<tt>Error</tt>)
+      (
+        <tt>Error</tt>
+      )
       &mdash;
       <span class='desc'>no callback specified </span>
     </li>
@@ -673,7 +713,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span><tt>void</tt></li>
+      <span class='type'></span>
+      <tt>void</tt>
+    </li>
   </ul>
 </div>
   </div>
@@ -691,7 +733,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
   <h3>Returns:</h3>
   <ul class='return'>
     <li>
-      <span class='type'></span><tt>void</tt></li>
+      <span class='type'></span>
+      <tt>void</tt>
+    </li>
   </ul>
 </div>
   </div>
@@ -711,7 +755,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
     <li>
       <span class='name'>buf</span>
       <span class='type'>
-        (<tt>Buffer</tt>)
+        (
+          <tt>Buffer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the buffer to add </span>
@@ -721,7 +767,9 @@ Checks <code>@length</code>, <code>@left</code>, and the internal buffer list fo
   <ul class='return'>
     <li>
       <span class='type'></span>
-      (<tt>Integer</tt>)
+      (
+        <tt>Integer</tt>
+      )
       &mdash;
       <span class='desc'>the number of bytes added </span>
     </li>
@@ -749,7 +797,9 @@ unit tests.  May be changed to _flatten in the future.</p>
   <ul class='return'>
     <li>
       <span class='type'></span>
-      (<tt>Buffer</tt>)
+      (
+        <tt>Buffer</tt>
+      )
       &mdash;
       <span class='desc'>the concatenated set of all bytes </span>
     </li>
@@ -777,7 +827,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>start</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>start offset (default: 0) </span>
@@ -785,7 +837,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>end</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>end offset (default: <code>@length</code>) </span>
@@ -795,7 +849,9 @@ the end of the bytes currently in the stream.</p>
   <ul class='return'>
     <li>
       <span class='type'></span>
-      (<tt>Buffer</tt>)
+      (
+        <tt>Buffer</tt>
+      )
       &mdash;
       <span class='desc'>the generated slice </span>
     </li>
@@ -818,7 +874,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the value to put in each byte </span>
@@ -826,7 +884,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>offset</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>beginning offset to modify (default: 0) </span>
@@ -834,7 +894,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>end</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>end offset (default: <code>@length</code>) </span>
@@ -857,7 +919,9 @@ the end of the bytes currently in the stream.</p>
   <ul class='return'>
     <li>
       <span class='type'></span>
-      (<tt>String</tt>)
+      (
+        <tt>String</tt>
+      )
       &mdash;
       <span class='desc'>JSON representation </span>
     </li>
@@ -880,7 +944,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>encoding</span>
       <span class='type'>
-        (<tt>String</tt>)
+        (
+          <tt>String</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>encoding name (default: &#39;hex&#39;) </span>
@@ -890,7 +956,9 @@ the end of the bytes currently in the stream.</p>
   <ul class='return'>
     <li>
       <span class='type'></span>
-      (<tt>String</tt>)
+      (
+        <tt>String</tt>
+      )
       &mdash;
       <span class='desc'>string representation </span>
     </li>
@@ -913,7 +981,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>value</span>
       <span class='type'>
-        (<tt>String</tt>)
+        (
+          <tt>String</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the string to write </span>
@@ -921,7 +991,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>length</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the number of <em>bytes</em> to write (default: byte length of string in the given encoding) </span>
@@ -929,7 +1001,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>encoding</span>
       <span class='type'>
-        (<tt>String</tt>)
+        (
+          <tt>String</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>The encoding to use for the string (default: &#39;utf8&#39;) </span>
@@ -953,7 +1027,9 @@ the end of the bytes currently in the stream.</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
       &mdash;
       <span class='desc'>the byte to write </span>
@@ -978,7 +1054,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1001,7 +1079,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1024,7 +1104,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1047,7 +1129,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1070,7 +1154,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1093,7 +1179,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1116,7 +1204,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1139,7 +1229,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1162,7 +1254,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1185,7 +1279,9 @@ order to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1208,7 +1304,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1231,7 +1329,9 @@ order to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1254,7 +1354,9 @@ to the stream</p>
     <li>
       <span class='name'>val</span>
       <span class='type'>
-        (<tt>Integer</tt>)
+        (
+          <tt>Integer</tt>
+        )
       </span>
     </li>
   </ul>
@@ -1263,11 +1365,11 @@ to the stream</p>
 </div>
     </div>
     <div id='footer'>
-  March 17, 14 23:34:18 by
+  March 22, 14 22:05:32 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
-  2.0.6
+  2.0.8
   &#10034;
   Press H to see the keyboard shortcuts
   &#10034;

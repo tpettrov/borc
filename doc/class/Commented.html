@@ -19,30 +19,29 @@
       Index
     </a>
     &raquo;
-    <span class='title'>Encoder</span>
+    <span class='title'>Commented</span>
   </div>
 </div>
     <div id='content'>
       <h1>
         Class:
-        Encoder
+        Commented
       </h1>
       <table class='box'>
         <tr>
           <td>Defined in:</td>
-          <td>src&#47;encoder.coffee</td>
+          <td>src&#47;commented.coffee</td>
         </tr>
         <tr>
           <td>Inherits:</td>
           <td>
-            stream.Readable
+            events.EventEmitter
           </td>
         </tr>
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>A Readable stream of CBOR bytes.  Call <code>write</code> to get JSON objects translated
-into the stream.</p>
+  <p>A quick hack to generate the expanded format of RFC 7049, section 2.2.1</p>
 </div>
 <div class='tags'>
 </div>
@@ -50,14 +49,14 @@ into the stream.</p>
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#encode-static'>
+      <a href='#comment-static'>
         .
 (void)
-<b>encode</b><span>(objs...)</span>
+<b>comment</b><span>(options, cb)</span>
       </a>
     </span>
     <span class='desc'>
-      Encode one or more JavaScript objects, and return a Buffer containing the CBOR bytes.
+      Comment on an input Buffer or string, creating a string passed to the callback.
 
     </span>
   </li>
@@ -66,82 +65,29 @@ into the stream.</p>
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#addSemanticType-dynamic'>
-        #
-(function(Encoder))
-<b>addSemanticType</b><span>(type, fun)</span>
-      </a>
-    </span>
-    <span class='desc'>
-      Add an encoding function to the list of supported semantic types. 
-    </span>
-  </li>
-  <li>
-    <span class='signature'>
-      <a href='#write-dynamic'>
+      <a href='#start-dynamic'>
         #
 (void)
-<b>write</b><span>(objs...)</span>
+<b>start</b><span>()</span>
       </a>
     </span>
     <span class='desc'>
-      Encode one or more JavaScript objects into the stream. 
-    </span>
-  </li>
-  <li>
-    <span class='signature'>
-      <a href='#end-dynamic'>
-        #
-(void)
-<b>end</b><span>(objs...)</span>
-      </a>
-    </span>
-    <span class='desc'>
-      Encode zero or more JavaScript objects into the stream, then end the stream. 
+      Call this after you&#39;ve set up any callbacks desired 
     </span>
   </li>
 </ul>
       <h2>Class Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='encode-static'>
+    <p class='signature' id='comment-static'>
       .
 (void)
-<b>encode</b><span>(objs...)</span>
+<b>comment</b><span>(options, cb)</span>
       <br>
     </p>
     <div class='docstring'>
-  <p>Encode one or more JavaScript objects, and return a Buffer containing the
-CBOR bytes.</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>objs...</span>
-      <span class='type'>
-        (
-          <tt>Object+</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>the objects to encode </span>
-    </li>
-  </ul>
-</div>
-  </div>
-</div>
-      <h2>Constructor Details</h2>
-      <div class='methods'>
-  <div class='method_details'>
-    <p class='signature' id='constructor-dynamic'>
-      #
-(void)
-<b>constructor</b><span>(options = {})</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <p>Create an encoder</p>
+  <p>Comment on an input Buffer or string, creating a string passed to the
+callback.</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -154,7 +100,15 @@ CBOR bytes.</p>
         )
       </span>
       &mdash;
-      <span class='desc'>options for the encoder </span>
+      <span class='desc'>options for the parser </span>
+    </li>
+    <li>
+      <span class='name'>cb</span>
+      <span class='type'>
+        (
+          <tt>function(Error, String)</tt>
+        )
+      </span>
     </li>
   </ul>
   <h3>
@@ -163,14 +117,89 @@ CBOR bytes.</p>
   </h3>
   <ul class='options'>
     <li>
-      <span class='name'>genTypes</span>
+      <span class='name'>input</span>
       <span class='type'>
         (
-          <tt>Array</tt>
+          <tt>Buffer,String,BufferStream</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>array of pairs of <code>type</code>, <code>function(Encoder)</code> for semantic types to be encoded. (default: [Array, arrayFunc, Date, dateFunc, Buffer, bufferFunc, RegExp, regexFunc, url.Url, urlFunc, bignumber, bignumberFunc] </span>
+      <span class='desc'>input </span>
+    </li>
+    <li>
+      <span class='name'>max_depth</span>
+      <span class='type'>
+        (
+          <tt>Integer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>how many times to indent the dashes (default: 10) </span>
+    </li>
+  </ul>
+</div>
+  </div>
+</div>
+      <h2>Constructor Details</h2>
+      <div class='methods'>
+  <div class='method_details'>
+    <p class='signature' id='constructor-dynamic'>
+      #
+(void)
+<b>constructor</b><span>(options)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Create a CBOR commenter.  Call start() after you hook any events.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>options</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>options for the parser </span>
+    </li>
+  </ul>
+  <h3>
+    Options Hash:
+    (options):
+  </h3>
+  <ul class='options'>
+    <li>
+      <span class='name'>input</span>
+      <span class='type'>
+        (
+          <tt>Buffer,String,BufferStream</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>input </span>
+    </li>
+    <li>
+      <span class='name'>max_depth</span>
+      <span class='type'>
+        (
+          <tt>Integer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>how many times to indent the dashes (default: 10) </span>
+    </li>
+    <li>
+      <span class='name'>output</span>
+      <span class='type'>
+        (
+          <tt>Writable</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>where to send the output (default: process.stdout) </span>
     </li>
   </ul>
 </div>
@@ -179,80 +208,16 @@ CBOR bytes.</p>
       <h2>Instance Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='addSemanticType-dynamic'>
-      #
-(function(Encoder))
-<b>addSemanticType</b><span>(type, fun)</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <p>Add an encoding function to the list of supported semantic types.  This is
-useful for objects for which you can&#39;t add an encodeCBOR method</p>
-</div>
-<div class='tags'>
-  <h3>Returns:</h3>
-  <ul class='return'>
-    <li>
-      <span class='type'></span>
-      (
-        <tt>function(Encoder)</tt>
-      )
-      &mdash;
-      <span class='desc'>if this type already exists in the semantic type list, replace that function with the new one, and return the old one. Return null if this is a new type. </span>
-    </li>
-  </ul>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='write-dynamic'>
+    <p class='signature' id='start-dynamic'>
       #
 (void)
-<b>write</b><span>(objs...)</span>
+<b>start</b><span>()</span>
       <br>
     </p>
     <div class='docstring'>
-  <p>Encode one or more JavaScript objects into the stream.</p>
+  <p>Call this after you&#39;ve set up any callbacks desired</p>
 </div>
 <div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>objs...</span>
-      <span class='type'>
-        (
-          <tt>Object+</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>the objects to encode </span>
-    </li>
-  </ul>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='end-dynamic'>
-      #
-(void)
-<b>end</b><span>(objs...)</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <p>Encode zero or more JavaScript objects into the stream, then end the stream.</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>objs...</span>
-      <span class='type'>
-        (
-          <tt>Object*</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>the objects to encode </span>
-    </li>
-  </ul>
 </div>
   </div>
 </div>
