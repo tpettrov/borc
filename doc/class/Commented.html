@@ -52,7 +52,7 @@
       <a href='#comment-static'>
         .
 (void)
-<b>comment</b><span>(options, cb)</span>
+<b>comment</b><span>(input, max_depth = 10, cb)</span>
       </a>
     </span>
     <span class='desc'>
@@ -82,40 +82,16 @@
     <p class='signature' id='comment-static'>
       .
 (void)
-<b>comment</b><span>(options, cb)</span>
+<b>comment</b><span>(input, max_depth = 10, cb)</span>
       <br>
     </p>
     <div class='docstring'>
   <p>Comment on an input Buffer or string, creating a string passed to the
-callback.</p>
+callback.  If callback not specified,  output goes to stdout.</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
   <ul class='param'>
-    <li>
-      <span class='name'>options</span>
-      <span class='type'>
-        (
-          <tt>Object</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>options for the parser </span>
-    </li>
-    <li>
-      <span class='name'>cb</span>
-      <span class='type'>
-        (
-          <tt>function(Error, String)</tt>
-        )
-      </span>
-    </li>
-  </ul>
-  <h3>
-    Options Hash:
-    (options):
-  </h3>
-  <ul class='options'>
     <li>
       <span class='name'>input</span>
       <span class='type'>
@@ -135,6 +111,16 @@ callback.</p>
       </span>
       &mdash;
       <span class='desc'>how many times to indent the dashes (default: 10) </span>
+    </li>
+    <li>
+      <span class='name'>cb</span>
+      <span class='type'>
+        (
+          <tt>function(Error, String)</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>optional. </span>
     </li>
   </ul>
 </div>
@@ -223,7 +209,7 @@ callback.</p>
 </div>
     </div>
     <div id='footer'>
-  March 24, 14 16:37:07 by
+  March 28, 14 15:17:07 by
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
