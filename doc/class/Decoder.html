@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta charset='UTF-8'>
-  <title>API Documentation</title>
+  <title>cbor API Documentation</title>
   <script src='../javascript/application.js'></script>
   <script src='../javascript/search.js'></script>
   <link rel='stylesheet' href='../stylesheets/application.css' type='text/css'>
@@ -11,8 +11,8 @@
     <div id='base' data-path='../'></div>
 <div id='header'>
   <div id='menu'>
-    <a href='../extra/README.md.html' title='Cbor'>
-      Cbor
+    <a href='../extra/README.md.html' title='node cbor'>
+      node cbor
     </a>
     &raquo;
     <a href='../alphabetical_index.html' title='Index'>
@@ -35,144 +35,351 @@
         <tr>
           <td>Inherits:</td>
           <td>
-            stream.Writable
+            BinaryParseStream
           </td>
         </tr>
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <p>Decode a CBOR byte stream into JavaScript objects.  Either pipe another stream
-into an instance of this class, or pass a string, Buffer, or BufferStream into
-<code>options.input</code>, assign callbacks, then call <code>start()</code>.</p>
+  <p>Decode a stream of CBOR bytes by transforming them into equivalent
+JavaScript data.  Because of the limitations of Node object streams,
+special symbols are emitted instead of NULL or UNDEFINED.  Fix those
+up by calling <a href='../class/Decoder.html#nullcheck-static'>Decoder.nullcheck</a>.</p><p>Several other internal events are emitted, but I hope you never need to
+care about them.</p>
 </div>
 <div class='tags'>
   <div class='events'>
     <h3>Events:</h3>
     <div class='event'>
       <p class='signature'>
-        end()
+        &#39;data&#39;
       </p>
       <div class='docstring'>
-  <p>Done processing the input</p>
+  <p>(object) A complete top-level CBOR item has been parsed</p>
 </div>
 <div class='tags'>
 </div>
     </div>
     <div class='event'>
       <p class='signature'>
-        error(er)
+        &#39;end&#39;
       </p>
       <div class='docstring'>
-  <p>An error has occured</p>
+  <p>The input stream is fully parsed</p>
 </div>
 <div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>er</span>
-      <span class='type'>
-        (
-          <tt>Error</tt>
-        )
-      </span>
-    </li>
-  </ul>
 </div>
     </div>
     <div class='event'>
       <p class='signature'>
-        complete(obj)
+        &#39;error&#39;
       </p>
       <div class='docstring'>
-  <p>A complete CBOR object has been read from the stream
-This is the main event to hook.</p>
+  <p>(Error) An error has occurred in parsing</p>
 </div>
 <div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>obj</span>
-      <span class='type'>
-        (
-          <tt>Object</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>the object that was detected </span>
-    </li>
-  </ul>
 </div>
     </div>
   </div>
 </div>
+      <h2>Variables Summary</h2>
+      <dl class='constants'>
+  <dt id='NOT_FOUND-variable'>
+    NOT_FOUND
+    =
+  </dt>
+  <dd>
+    <pre><code class='coffeescript'>NOT_FOUND</code></pre>
+    <div class='docstring'>
+  <p>A symbol returned from <a href='../class/Decoder.html#decodeFirst-static'>Decoder.decodeFirst</a> when no object was found.</p>
+</div>
+<div class='tags'>
+</div>
+  </dd>
+</dl>
       <h2>Class Method Summary</h2>
       <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#decode-static'>
+      <a href='#nullcheck-static'>
         .
 (void)
-<b>decode</b><span>(buf, cb)</span>
+<b>nullcheck</b><span>(val)</span>
       </a>
     </span>
     <span class='desc'>
-      Decode CBOR objects from a Buffer, String, or BufferStream 
+      Check the given value for a symbol encoding a NULL or UNDEFINED value in the CBOR stream.
+
     </span>
   </li>
-</ul>
-      <h2>Instance Method Summary</h2>
-      <ul class='summary'>
   <li>
     <span class='signature'>
-      <a href='#start-dynamic'>
-        #
-(void)
-<b>start</b><span>()</span>
+      <a href='#decodeFirst-static'>
+        .
+(undefined, Promise)
+<b>decodeFirst</b><span>(input, options = {
+  encoding: &#39;hex&#39;
+}, cb)</span>
       </a>
     </span>
     <span class='desc'>
-      All events have been hooked, start parsing the input. 
+      Decode the first CBOR item in the input. 
+    </span>
+  </li>
+  <li>
+    <span class='signature'>
+      <a href='#decodeAll-static'>
+        .
+(undefined, Promise)
+<b>decodeAll</b><span>(input, options = {
+  encoding: &#39;hex&#39;
+}, cb)</span>
+      </a>
+    </span>
+    <span class='desc'>
+      Decode all of the CBOR items in the input. 
     </span>
   </li>
 </ul>
       <h2>Class Method Details</h2>
       <div class='methods'>
   <div class='method_details'>
-    <p class='signature' id='decode-static'>
+    <p class='signature' id='nullcheck-static'>
       .
 (void)
-<b>decode</b><span>(buf, cb)</span>
+<b>nullcheck</b><span>(val)</span>
       <br>
     </p>
     <div class='docstring'>
-  <div class='note'>
-    <strong>Note:</strong>
-    I am continually surprised this returns an array. 
+  <p>Check the given value for a symbol encoding a NULL or UNDEFINED
+value in the CBOR stream.</p>
+  <div class='examples'>
+    <h3>Examples:</h3>
+    <h4>
+      
+    </h4>
+    <pre><code class='coffeescript'>myDecoder.on(&#39;data&#39;, function(val) {
+  val = Decoder.nullcheck(val);
+  ...
+});</code></pre>
   </div>
-  <p>Decode CBOR objects from a Buffer, String, or BufferStream</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
   <ul class='param'>
     <li>
-      <span class='name'>buf</span>
+      <span class='name'>value</span>
       <span class='type'>
         (
-          <tt>Buffer,String,BufferStream</tt>
+          <tt>Any</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>the input </span>
+      <span class='desc'>the value to check </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='decodeFirst-static'>
+      .
+(undefined, Promise)
+<b>decodeFirst</b><span>(input, options = {
+  encoding: &#39;hex&#39;
+}, cb)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Decode the first CBOR item in the input.  This will error if there are more
+bytes left over at the end, and optionally if there were no valid
+CBOR bytes in the input.  Emits the <a href='../class/Decoder.html#NOT_FOUND-variable'>Decoder.NOT_FOUND</a> Symbol in the
+callback if no data was found and the <code>required</code> option is false.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>input</span>
+      <span class='type'>
+        (
+          <tt>String, Buffer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the input to parse </span>
+    </li>
+    <li>
+      <span class='name'>options</span>
+      <span class='type'>
+        (
+          <tt>Object, String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>options Decoding options. If string, the input encoding. </span>
     </li>
     <li>
       <span class='name'>cb</span>
       <span class='type'>
         (
-          <tt>function(Error, Array)</tt>
+          <tt>Function</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>callback function </span>
+      <span class='desc'>an (error, value) callback. </span>
+    </li>
+  </ul>
+  <h3>
+    Options Hash:
+    (options):
+  </h3>
+  <ul class='options'>
+    <li>
+      <span class='name'>encoding</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the input encoding, when the input is a string. </span>
+    </li>
+    <li>
+      <span class='name'>required</span>
+      <span class='type'>
+        (
+          <tt>Boolean</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>give an error if no valid CBOR is found in the inoput. </span>
+    </li>
+    <li>
+      <span class='name'>tags</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>mapping from tag number to function(v), where v is the decoded value that comes after the tag, and where the function returns the correctly-created value for that tag. </span>
+    </li>
+    <li>
+      <span class='name'>max_depth</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the maximum depth to parse.  -1 (the default) for &quot;until you run out of memory&quot;.  Set this to a finite positive number for un-trusted inputs.  Most standard inputs won&#39;t nest more than 100 or so levels; I&#39;ve tested into the millions before running out of memory. </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>undefined, Promise</tt>
+      )
+      &mdash;
+      <span class='desc'>If cb not specified, returns a Promise fulfilled with the first parsed value. </span>
+    </li>
+  </ul>
+</div>
+  </div>
+  <div class='method_details'>
+    <p class='signature' id='decodeAll-static'>
+      .
+(undefined, Promise)
+<b>decodeAll</b><span>(input, options = {
+  encoding: &#39;hex&#39;
+}, cb)</span>
+      <br>
+    </p>
+    <div class='docstring'>
+  <p>Decode all of the CBOR items in the input.  This will error if there are
+more bytes left over at the end.</p>
+</div>
+<div class='tags'>
+  <h3>Parameters:</h3>
+  <ul class='param'>
+    <li>
+      <span class='name'>input</span>
+      <span class='type'>
+        (
+          <tt>String, Buffer</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the input to parse </span>
+    </li>
+    <li>
+      <span class='name'>options</span>
+      <span class='type'>
+        (
+          <tt>Object, String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>options Decoding options. If string, the input encoding. </span>
+    </li>
+    <li>
+      <span class='name'>cb</span>
+      <span class='type'>
+        (
+          <tt>Function</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>an (error, [values]) callback. </span>
+    </li>
+  </ul>
+  <h3>
+    Options Hash:
+    (options):
+  </h3>
+  <ul class='options'>
+    <li>
+      <span class='name'>encoding</span>
+      <span class='type'>
+        (
+          <tt>String</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the input encoding, when the input is a string. </span>
+    </li>
+    <li>
+      <span class='name'>tags</span>
+      <span class='type'>
+        (
+          <tt>Object</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>mapping from tag number to function(v), where v is the decoded value that comes after the tag, and where the function returns the correctly-created value for that tag. </span>
+    </li>
+    <li>
+      <span class='name'>max_depth</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the maximum depth to parse.  -1 (the default) for &quot;until you run out of memory&quot;.  Set this to a finite positive number for un-trusted inputs.  Most standard inputs won&#39;t nest more than 100 or so levels; I&#39;ve tested into the millions before running out of memory. </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>undefined, Promise</tt>
+      )
+      &mdash;
+      <span class='desc'>If cb not specified, returns a Promise fulfilled with an array of the parsed values. </span>
     </li>
   </ul>
 </div>
@@ -184,11 +391,11 @@ This is the main event to hook.</p>
     <p class='signature' id='constructor-dynamic'>
       #
 (void)
-<b>constructor</b><span>(options = {})</span>
+<b>constructor</b><span>(options)</span>
       <br>
     </p>
     <div class='docstring'>
-  <p>Create a Decoder</p>
+  <p>Create a parsing stream.</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -197,11 +404,11 @@ This is the main event to hook.</p>
       <span class='name'>options</span>
       <span class='type'>
         (
-          <tt>Object</tt>
+          <tt>Object, String</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>options for creation </span>
+      <span class='desc'>options Decoding options. </span>
     </li>
   </ul>
   <h3>
@@ -210,36 +417,6 @@ This is the main event to hook.</p>
   </h3>
   <ul class='options'>
     <li>
-      <span class='name'>input</span>
-      <span class='type'>
-        (
-          <tt>Buffer,String,BufferStream</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>optional input </span>
-    </li>
-    <li>
-      <span class='name'>encoding</span>
-      <span class='type'>
-        (
-          <tt>String</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>encoding of a String <code>input</code> (default: &#39;hex&#39;) </span>
-    </li>
-    <li>
-      <span class='name'>offset</span>
-      <span class='type'>
-        (
-          <tt>Integer</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'><em>byte</em> offset into the input from which to start </span>
-    </li>
-    <li>
       <span class='name'>tags</span>
       <span class='type'>
         (
@@ -247,39 +424,29 @@ This is the main event to hook.</p>
         )
       </span>
       &mdash;
-      <span class='desc'>map of tag numbers to function(value), returning an object of the correct type for that tag. </span>
+      <span class='desc'>mapping from tag number to function(v), where v is the decoded value that comes after the tag, and where the function returns the correctly-created value for that tag. </span>
+    </li>
+    <li>
+      <span class='name'>max_depth</span>
+      <span class='type'>
+        (
+          <tt>Number</tt>
+        )
+      </span>
+      &mdash;
+      <span class='desc'>the maximum depth to parse.  -1 (the default) for &quot;until you run out of memory&quot;.  Set this to a finite positive number for un-trusted inputs.  Most standard inputs won&#39;t nest more than 100 or so levels; I&#39;ve tested into the millions before running out of memory. </span>
     </li>
   </ul>
 </div>
   </div>
 </div>
-      <h2>Instance Method Details</h2>
-      <div class='methods'>
-  <div class='method_details'>
-    <p class='signature' id='start-dynamic'>
-      #
-(void)
-<b>start</b><span>()</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <div class='note'>
-    <strong>Note:</strong>
-    This MUST NOT be called if you&#39;re piping a Readable stream in. 
-  </div>
-  <p>All events have been hooked, start parsing the input.</p>
-</div>
-<div class='tags'>
-</div>
-  </div>
-</div>
     </div>
     <div id='footer'>
-  March 28, 14 15:17:07 by
+  By
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
-  2.0.8
+  2.1.0
   &#10034;
   Press H to see the keyboard shortcuts
   &#10034;

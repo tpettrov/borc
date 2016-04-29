@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta charset='UTF-8'>
-  <title>API Documentation</title>
+  <title>cbor API Documentation</title>
   <script src='../javascript/application.js'></script>
   <script src='../javascript/search.js'></script>
   <link rel='stylesheet' href='../stylesheets/application.css' type='text/css'>
@@ -11,8 +11,8 @@
     <div id='base' data-path='../'></div>
 <div id='header'>
   <div id='menu'>
-    <a href='../extra/README.md.html' title='Cbor'>
-      Cbor
+    <a href='../extra/README.md.html' title='node cbor'>
+      node cbor
     </a>
     &raquo;
     <a href='../alphabetical_index.html' title='Index'>
@@ -35,79 +35,15 @@
         <tr>
           <td>Inherits:</td>
           <td>
-            stream.Writable
+            stream.Transform
           </td>
         </tr>
       </table>
       <h2>Overview</h2>
       <div class='docstring'>
-  <div class='note todo'>
-    <strong>TODO:</strong>
-    Consider turning this into a Transform stream 
-  </div>
-  <p>Output the diagnostic format from a set of CBOR bytes.  Either pipe another
-stream into an instance of this class, or pass a string, Buffer, or
-BufferStream into <code>options.input</code>, assign callbacks, then call <code>start()</code>.</p>
+  <p>Output the diagnostic format from a stream of CBOR bytes.</p>
 </div>
 <div class='tags'>
-  <div class='events'>
-    <h3>Events:</h3>
-    <div class='event'>
-      <p class='signature'>
-        end()
-      </p>
-      <div class='docstring'>
-  <p>Done processing the input</p>
-</div>
-<div class='tags'>
-</div>
-    </div>
-    <div class='event'>
-      <p class='signature'>
-        error(er)
-      </p>
-      <div class='docstring'>
-  <p>An error has occured</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>er</span>
-      <span class='type'>
-        (
-          <tt>Error</tt>
-        )
-      </span>
-    </li>
-  </ul>
-</div>
-    </div>
-    <div class='event'>
-      <p class='signature'>
-        complete(obj)
-      </p>
-      <div class='docstring'>
-  <p>A complete CBOR object has been read from the stream
-There is no need to hook this event usually, it&#39;s mostly for testing.</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>obj</span>
-      <span class='type'>
-        (
-          <tt>Stream</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>the stream that was written to </span>
-    </li>
-  </ul>
-</div>
-    </div>
-  </div>
 </div>
       <h2>Class Method Summary</h2>
       <ul class='summary'>
@@ -115,39 +51,12 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
     <span class='signature'>
       <a href='#diagnose-static'>
         .
-(void)
-<b>diagnose</b><span>(input, encoding = &#39;hex&#39;, output = process.stdout, done)</span>
-      </a>
-    </span>
-    <span class='desc'>
-      Convenience function to print to (e.g.) stdout. 
-    </span>
-  </li>
-  <li>
-    <span class='signature'>
-      <a href='#diagnoseString-static'>
-        .
-(void)
-<b>diagnoseString</b><span>(input, done)</span>
+(undefined, Promise)
+<b>diagnose</b><span>(input, encoding, cb)</span>
       </a>
     </span>
     <span class='desc'>
       Convenience function to return a string in diagnostic format. 
-    </span>
-  </li>
-</ul>
-      <h2>Instance Method Summary</h2>
-      <ul class='summary'>
-  <li>
-    <span class='signature'>
-      <a href='#start-dynamic'>
-        #
-(void)
-<b>start</b><span>()</span>
-      </a>
-    </span>
-    <span class='desc'>
-      All events have been hooked, start parsing the input. 
     </span>
   </li>
 </ul>
@@ -156,12 +65,13 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
   <div class='method_details'>
     <p class='signature' id='diagnose-static'>
       .
-(void)
-<b>diagnose</b><span>(input, encoding = &#39;hex&#39;, output = process.stdout, done)</span>
+(undefined, Promise)
+<b>diagnose</b><span>(input, encoding, cb)</span>
       <br>
     </p>
     <div class='docstring'>
-  <p>Convenience function to print to (e.g.) stdout.</p>
+  <p>Convenience function to return a string in diagnostic format.
+@param encoding the encoding, if input is a string (defaults to &#39;hex&#39;)</p>
 </div>
 <div class='tags'>
   <h3>Parameters:</h3>
@@ -170,73 +80,30 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
       <span class='name'>input</span>
       <span class='type'>
         (
-          <tt>Buffer,String,BufferStream</tt>
+          <tt>Buffer,String</tt>
         )
       </span>
       &mdash;
       <span class='desc'>the CBOR bytes to write </span>
     </li>
     <li>
-      <span class='name'>encoding</span>
-      <span class='type'>
-        (
-          <tt>String</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>encoding if <code>input</code> is a string (default: &#39;hex&#39;) </span>
-    </li>
-    <li>
-      <span class='name'>output</span>
-      <span class='type'>
-        (
-          <tt>Writable</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>Writable stream to output diagnosis info into (default: process.stdout) </span>
-    </li>
-    <li>
-      <span class='name'>done</span>
-      <span class='type'>
-        (
-          <tt>function(error)</tt>
-        )
-      </span>
-    </li>
-  </ul>
-</div>
-  </div>
-  <div class='method_details'>
-    <p class='signature' id='diagnoseString-static'>
-      .
-(void)
-<b>diagnoseString</b><span>(input, done)</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <p>Convenience function to return a string in diagnostic format.</p>
-</div>
-<div class='tags'>
-  <h3>Parameters:</h3>
-  <ul class='param'>
-    <li>
-      <span class='name'>input</span>
-      <span class='type'>
-        (
-          <tt>Buffer,String,BufferStream</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>the CBOR bytes to write </span>
-    </li>
-    <li>
-      <span class='name'>done</span>
+      <span class='name'>cb</span>
       <span class='type'>
         (
           <tt>function(error, String)</tt>
         )
       </span>
+    </li>
+  </ul>
+  <h3>Returns:</h3>
+  <ul class='return'>
+    <li>
+      <span class='type'></span>
+      (
+        <tt>undefined, Promise</tt>
+      )
+      &mdash;
+      <span class='desc'>if cb is not specified, returns a Promise fulfilled with the diagnostic string </span>
     </li>
   </ul>
 </div>
@@ -284,76 +151,36 @@ There is no need to hook this event usually, it&#39;s mostly for testing.</p>
       <span class='desc'>output between detected objects (default: &#39;\n&#39;) </span>
     </li>
     <li>
-      <span class='name'>output</span>
+      <span class='name'>stream_errors</span>
       <span class='type'>
         (
-          <tt>Writable</tt>
+          <tt>Boolean</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>where the output should go (default: process.stdout) </span>
+      <span class='desc'>put error info into the output stream (default: false) </span>
     </li>
     <li>
-      <span class='name'>input</span>
+      <span class='name'>max_depth</span>
       <span class='type'>
         (
-          <tt>Buffer,String,BufferStream</tt>
+          <tt>Number</tt>
         )
       </span>
       &mdash;
-      <span class='desc'>optional input </span>
-    </li>
-    <li>
-      <span class='name'>encoding</span>
-      <span class='type'>
-        (
-          <tt>String</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'>encoding of a String <code>input</code> (default: &#39;hex&#39;) </span>
-    </li>
-    <li>
-      <span class='name'>offset</span>
-      <span class='type'>
-        (
-          <tt>Integer</tt>
-        )
-      </span>
-      &mdash;
-      <span class='desc'><em>byte</em> offset into the input from which to start </span>
+      <span class='desc'>the maximum depth to parse.  -1 (the default) for &quot;until you run out of memory&quot;.  Set this to a finite positive number for un-trusted inputs.  Most standard inputs won&#39;t nest more than 100 or so levels; I&#39;ve tested into the millions before running out of memory. </span>
     </li>
   </ul>
 </div>
   </div>
 </div>
-      <h2>Instance Method Details</h2>
-      <div class='methods'>
-  <div class='method_details'>
-    <p class='signature' id='start-dynamic'>
-      #
-(void)
-<b>start</b><span>()</span>
-      <br>
-    </p>
-    <div class='docstring'>
-  <div class='note'>
-    <strong>Note:</strong>
-    This MUST NOT be called if you&#39;re piping a Readable stream in. 
-  </div>
-  <p>All events have been hooked, start parsing the input.</p>
-</div>
-<div class='tags'>
-</div>
-  </div>
-</div>
     </div>
     <div id='footer'>
-  March 28, 14 15:17:07 by
+  By
   <a href='https://github.com/coffeedoc/codo' title='CoffeeScript API documentation generator'>
     Codo
   </a>
-  2.0.8
+  2.1.0
   &#10034;
   Press H to see the keyboard shortcuts
   &#10034;
