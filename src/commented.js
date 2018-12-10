@@ -6,7 +6,7 @@ const utils = require('./utils')
 const Simple = require('./simple')
 const Decoder = require('./decoder')
 const constants = require('./constants')
-const bignumber = require('bignumber.js')
+const JSBI = require('jsbi')
 
 const MT = constants.MT,
       NUMBYTES = constants.NUMBYTES,
@@ -304,7 +304,7 @@ class Commented extends stream.Transform {
         this.push(val.toString('hex'))
         this.push('\n')
       }
-    } else if (val instanceof bignumber) {
+    } else if (val instanceof JSBI) {
       this.push(val.toString())
       this.push('\n')
     } else {

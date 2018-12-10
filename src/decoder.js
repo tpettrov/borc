@@ -1,7 +1,7 @@
 'use strict'
 
 const ieee754 = require('ieee754')
-const Bignumber = require('bignumber.js')
+const JSBI = require('jsbi')
 
 const parser = require('./decoder.asm')
 const utils = require('./utils')
@@ -40,14 +40,30 @@ class Decoder {
       0: (val) => new Date(val),
       1: (val) => new Date(val * 1000),
       2: (val) => utils.arrayBufferToBignumber(val),
-      3: (val) => c.NEG_ONE.minus(utils.arrayBufferToBignumber(val)),
+      3: (val) => JSBI.subtract(c.NEG_ONE, utils.arrayBufferToBignumber(val)),
       4: (v) => {
         // const v = new Uint8Array(val)
-        return c.TEN.pow(v[0]).times(v[1])
+        const exponent = JSBI.BigInt(v[0])
+        if (exponent > 0) {
+          return JSBI.multiply(
+            JSBI.exponentiate(c.TEN, exponent), JSBI.BigInt(v[1]))
+        } else {
+          return JSBI.multiply(
+            JSBI.divide(1, JSBI.exponentiate(c.TEN, JSBI.unaryMinus(exponent))),
+            JSBI.BigInt(v[1]))
+        }
       },
       5: (v) => {
         // const v = new Uint8Array(val)
-        return c.TWO.pow(v[0]).times(v[1])
+        const exponent = JSBI.BigInt(v[0])
+        if (exponent > 0) {
+          return JSBI.multiply(
+            JSBI.exponentiate(c.TWO, exponent), JSBI.BigInt(v[1]))
+        } else {
+          return JSBI.multiply(
+            JSBI.divide(1, JSBI.exponentiate(c.TWO, JSBI.unaryMinus(exponent))),
+            JSBI.BigInt(v[1]))
+        }
       },
       32: (val) => url.parse(val),
       35: (val) => new RegExp(val)
@@ -303,12 +319,19 @@ class Decoder {
     return -1 - utils.buildInt32(f, g)
   }
 
+
+  // TODO vmx 2018-12-10: There should be a better way, to get the Int64neg
+  // directly
   createInt64Neg (f1, f2, g1, g2) {
     const f = utils.buildInt32(f1, f2)
     const g = utils.buildInt32(g1, g2)
 
     if (f > c.MAX_SAFE_HIGH) {
-      return c.NEG_ONE.minus(new Bignumber(f).times(c.SHIFT32).plus(g))
+      return JSBI.subtract(
+        c.NEG_ONE,
+        JSBI.add(
+          JSBI.multiply(JSBI.BigInt(f), JSBI.BigInt(c.SHIFT32)),
+          JSBI.BigInt(g)))
     }
 
     return -1 - ((f * c.SHIFT32) + g)

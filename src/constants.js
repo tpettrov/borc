@@ -1,6 +1,6 @@
 'use strict'
 
-const Bignumber = require('bignumber.js')
+const JSBI = require('jsbi')
 
 exports.MT = {
   POS_INT: 0,
@@ -59,9 +59,9 @@ exports.SHIFT32 = Math.pow(2, 32)
 exports.SHIFT16 = Math.pow(2, 16)
 
 exports.MAX_SAFE_HIGH = 0x1fffff
-exports.NEG_ONE = new Bignumber(-1)
-exports.TEN = new Bignumber(10)
-exports.TWO = new Bignumber(2)
+exports.NEG_ONE = JSBI.BigInt(-1)
+exports.TEN = JSBI.BigInt(10)
+exports.TWO = JSBI.BigInt(2)
 
 exports.PARENT = {
   ARRAY: 0,

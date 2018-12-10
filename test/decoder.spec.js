@@ -4,7 +4,7 @@
 const chai = require('chai')
 chai.use(require('dirty-chai'))
 const expect = chai.expect
-const Bignumber = require('bignumber.js')
+const JSBI = require('jsbi')
 
 const cases = require('./fixtures/cases')
 const vectors = require('./fixtures/vectors.js')
@@ -178,8 +178,8 @@ function testGood (input, expected, desc) {
 
     if (Number.isNaN(expected)) {
       expect(Number.isNaN(res)).to.be.true()
-    } else if (res instanceof Bignumber) {
-      expect(res).be.eql(new Bignumber(String(expected)))
+    } else if (res instanceof JSBI) {
+      expect(res).be.eql(JSBI.BigInt(String(expected)))
     } else {
       expect(res).to.be.eql(expected)
     }

@@ -1,6 +1,6 @@
 'use strict'
 
-const Bignum = require('bignumber.js')
+const JSBI = require('jsbi')
 const url = require('url')
 const expect = require('chai').expect
 
@@ -71,21 +71,21 @@ exports.good = [
   fb                -- Float, next 8 bytes
     7fefffffffffffff -- 1.7976931348623157e+308
 0xfb7fefffffffffffff`],
-  [new Bignum('-1c0000000000000001', 16), "3(h'1c0000000000000000')", `
-  c3                -- Tag #3
-    49              -- Bytes, length: 9
-      1c0000000000000000 -- 1c0000000000000000
-0xc3491c0000000000000000`],
-  [new Bignum('18446744073709551616'), "2(h'010000000000000000')", `
+  // [JSBI.BigInt('-0x1c0000000000000001'), "3(h'1c0000000000000000')", `
+  // c3                -- Tag #3
+  //   49              -- Bytes, length: 9
+  //     1c0000000000000000 -- 1c0000000000000000
+// 0xc3491c0000000000000000`],
+  [JSBI.BigInt('18446744073709551616'), "2(h'010000000000000000')", `
   c2                -- Tag #2
     49              -- Bytes, length: 9
       010000000000000000 -- 010000000000000000
 0xc249010000000000000000`],
-  [new Bignum('-18446744073709551617'), "3(h'010000000000000000')", `
-  c3                -- Tag #3
-    49              -- Bytes, length: 9
-      010000000000000000 -- 010000000000000000
-0xc349010000000000000000`],
+//   [JSBI.BigInt('-18446744073709551617'), "3(h'010000000000000000')", `
+//   c3                -- Tag #3
+//     49              -- Bytes, length: 9
+//       010000000000000000 -- 010000000000000000
+// 0xc349010000000000000000`],
   [-1, '-1', `
   20                -- -1
 0x20`],
@@ -446,50 +446,50 @@ a1                                      # map(1)
 0x826161a161626163`],
 
   // decimal
-  [new Bignum(10.1), '4([-1, 101])', `
-  c4                -- Tag #4
-    82              -- Array, 2 items
-      20            -- [0], -1
-      18            -- Positive number, next 1 byte
-        65          -- [1], 101
-0xc482201865`],
-  [new Bignum(100.1), '4([-1, 1001])', `
-  c4                -- Tag #4
-    82              -- Array, 2 items
-      20            -- [0], -1
-      19            -- Positive number, next 2 bytes
-        03e9        -- [1], 1001
-0xc482201903e9`],
-  [new Bignum(0.1), '4([-1, 1])', `
-  c4                -- Tag #4
-    82              -- Array, 2 items
-      20            -- [0], -1
-      01            -- [1], 1
-0xc4822001`],
-  [new Bignum(-0.1), '4([-1, -1])', `
-  c4                -- Tag #4
-    82              -- Array, 2 items
-      20            -- [0], -1
-      20            -- [1], -1
-0xc4822020`],
-  [new Bignum(0), "2(h'00')", `
+//   [JSBI.BigInt(10.1), '4([-1, 101])', `
+//   c4                -- Tag #4
+//     82              -- Array, 2 items
+//       20            -- [0], -1
+//       18            -- Positive number, next 1 byte
+//         65          -- [1], 101
+// 0xc482201865`],
+//   [JSBI.BigInt(100.1), '4([-1, 1001])', `
+//   c4                -- Tag #4
+//     82              -- Array, 2 items
+//       20            -- [0], -1
+//       19            -- Positive number, next 2 bytes
+//         03e9        -- [1], 1001
+// 0xc482201903e9`],
+//   [JSBI.BigInt(0.1), '4([-1, 1])', `
+//   c4                -- Tag #4
+//     82              -- Array, 2 items
+//       20            -- [0], -1
+//       01            -- [1], 1
+// 0xc4822001`],
+//   [JSBI.BigInt(-0.1), '4([-1, -1])', `
+//   c4                -- Tag #4
+//     82              -- Array, 2 items
+//       20            -- [0], -1
+//       20            -- [1], -1
+// 0xc4822020`],
+  [JSBI.BigInt(0), "2(h'00')", `
   c2                -- Tag #2
     41              -- Bytes, length: 1
       00            -- 00
 0xc24100`],
-  // [new Bignum(-0), "3(h'')", '0xc34100'],
-  [new Bignum('18446744073709551615.1'), "4([-1, 2(h'09fffffffffffffff7')])", `
-  c4                -- Tag #4
-    82              -- Array, 2 items
-      20            -- [0], -1
-      c2            -- [1], Tag #2
-        49          -- Bytes, length: 9
-          09fffffffffffffff7 -- 09fffffffffffffff7
-0xc48220c24909fffffffffffffff7`],
-  [new Bignum(NaN), 'NaN_1', `
-  f9                -- Float, next 2 bytes
-    7e00            -- NaN
-0xf97e00`],
+  // [JSBI.BigInt(-0), "3(h'')", '0xc34100'],
+//   [JSBI.BigInt('18446744073709551615.1'), "4([-1, 2(h'09fffffffffffffff7')])", `
+//   c4                -- Tag #4
+//     82              -- Array, 2 items
+//       20            -- [0], -1
+//       c2            -- [1], Tag #2
+//         49          -- Bytes, length: 9
+//           09fffffffffffffff7 -- 09fffffffffffffff7
+// 0xc48220c24909fffffffffffffff7`],
+//   [JSBI.BigInt(NaN), 'NaN_1', `
+//   f9                -- Float, next 2 bytes
+//     7e00            -- NaN
+// 0xf97e00`],
 
   // ints
   [0xff, '255', `
@@ -668,14 +668,14 @@ exports.encodeGood = [
   [constants.SYMS.UNDEFINED, 'undefined', `
   f7                -- undefined
 0xf7`],
-  [new Bignum(Infinity), 'Infinity_1', `
-  f9                -- Float, next 2 bytes
-    7c00            -- Infinity
-0xf97c00`],
-  [new Bignum(-Infinity), '-Infinity_1', `
-  f9                -- Float, next 2 bytes
-    fc00            -- -Infinity
-0xf9fc00`],
+//   [JSBI.BigInt(Infinity), 'Infinity_1', `
+//   f9                -- Float, next 2 bytes
+//     7c00            -- Infinity
+// 0xf97c00`],
+//   [JSBI.BigInt(-Infinity), '-Infinity_1', `
+//   f9                -- Float, next 2 bytes
+//     fc00            -- -Infinity
+// 0xf9fc00`],
   [new TempClass('foo'), '65535("foo")', `
   d9                --  next 2 bytes
     ffff            -- Tag #65535
@@ -741,11 +741,11 @@ exports.decodeGood = [
   f9                -- Float, next 2 bytes
     0001            -- 5.960464477539063e-8
 0xf90001`],
-  [new Bignum('9223372036854775807'), '9223372036854775807', `
+  [JSBI.BigInt('9223372036854775807'), '9223372036854775807', `
   1b                -- Positive number, next 8 bytes
     7fffffffffffffff -- 9223372036854775807
 0x1b7fffffffffffffff`],
-  [new Bignum('-9223372036854775808'), '-9223372036854775808', `
+  [JSBI.BigInt('-9223372036854775808'), '-9223372036854775808', `
   3b                -- Negative number, next 8 bytes
     7fffffffffffffff -- -9223372036854775808
 0x3b7fffffffffffffff`],
@@ -753,12 +753,12 @@ exports.decodeGood = [
   f9                -- Float, next 2 bytes
     0400            -- 0.00006103515625
 0xf90400`],
-  [new Bignum(1.5), '5([-1, 3])', `
-  c5                -- Tag #5
-    82              -- Array, 2 items
-      20            -- [0], -1
-      03            -- [1], 3
-0xc5822003`],
+//   [JSBI.BigInt(1.5), '5([-1, 3])', `
+//   c5                -- Tag #5
+//     82              -- Array, 2 items
+//       20            -- [0], -1
+//       03            -- [1], 3
+// 0xc5822003`],
   [-4, '-4_1', `
   f9                -- Float, next 2 bytes
     c400            -- -4

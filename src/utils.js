@@ -1,6 +1,6 @@
 'use strict'
 
-const Bignumber = require('bignumber.js')
+const JSBI = require('jsbi')
 
 const constants = require('./constants')
 const SHIFT32 = constants.SHIFT32
@@ -36,7 +36,7 @@ exports.arrayBufferToBignumber = function (buf) {
     res += toHex(buf[i])
   }
 
-  return new Bignumber(res, 16)
+  return JSBI.BigInt('0x' + res)
 }
 
 // convert an Object into a Map
@@ -54,12 +54,14 @@ exports.buildInt32 = (f, g) => {
   return f * SHIFT16 + g
 }
 
+// TODO vmx 2018-12-10: There should be a better way, to get the Int64
+// directly
 exports.buildInt64 = (f1, f2, g1, g2) => {
   const f = exports.buildInt32(f1, f2)
   const g = exports.buildInt32(g1, g2)
 
   if (f > MAX_SAFE_HIGH) {
-    return new Bignumber(f).times(SHIFT32).plus(g)
+    return JSBI.add(JSBI.multiply(JSBI.BigInt(f), JSBI.BigInt(SHIFT32)), JSBI.BigInt(g))
   } else {
     return (f * SHIFT32) + g
   }

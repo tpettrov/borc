@@ -1,7 +1,7 @@
 'use strict'
 
+const JSBI = require('jsbi')
 const url = require('url')
-const Bignumber = require('bignumber.js')
 
 const utils = require('./utils')
 const constants = require('./constants')
@@ -18,7 +18,7 @@ const FALSE = (constants.MT.SIMPLE_FLOAT << 5) | constants.SIMPLE.FALSE
 const UNDEFINED = (constants.MT.SIMPLE_FLOAT << 5) | constants.SIMPLE.UNDEFINED
 const NULL = (constants.MT.SIMPLE_FLOAT << 5) | constants.SIMPLE.NULL
 
-const MAXINT_BN = new Bignumber('0x20000000000000')
+const MAXINT_BN = JSBI.BigInt('0x20000000000000')
 const BUF_NAN = Buffer.from('f97e00', 'hex')
 const BUF_INF_NEG = Buffer.from('f9fc00', 'hex')
 const BUF_INF_POS = Buffer.from('f97c00', 'hex')
@@ -46,7 +46,7 @@ class Encoder {
 
     this.semanticTypes = [
       [url.Url, this._pushUrl],
-      [Bignumber, this._pushBigNumber]
+      [JSBI, this._pushBigNumber]
     ]
 
     const addTypes = options.genTypes || []
@@ -214,6 +214,14 @@ class Encoder {
   }
 
   _pushArray (gen, obj) {
+    // It is not really an Array but a custom type that inherited from Array
+    const typesLen = this.semanticTypes.length
+    for (let i = 0; i < typesLen; i++) {
+      if (obj instanceof this.semanticTypes[i][0]) {
+        return this.semanticTypes[i][1].call(obj, this, obj)
+      }
+    }
+
     const len = obj.length
     if (!gen._pushInt(len, MT.ARRAY)) {
       return false
@@ -268,8 +276,8 @@ class Encoder {
 
   _pushBigint (obj) {
     let tag = TAG.POS_BIGINT
-    if (obj.isNegative()) {
-      obj = obj.negated().minus(1)
+    if (obj.sign) {
+      obj = JSBI.subtract(JSBI.unaryMinus(obj), 1)
       tag = TAG.NEG_BIGINT
     }
     let str = obj.toString(16)
@@ -281,30 +289,30 @@ class Encoder {
   }
 
   _pushBigNumber (gen, obj) {
-    if (obj.isNaN()) {
-      return gen._pushNaN()
-    }
-    if (!obj.isFinite()) {
-      return gen._pushInfinity(obj.isNegative() ? -Infinity : Infinity)
-    }
-    if (obj.isInteger()) {
+    // if (obj.isNaN()) {
+    //   return gen._pushNaN()
+    // }
+    // if (!obj.isFinite()) {
+    //   return gen._pushInfinity(obj.isNegative() ? -Infinity : Infinity)
+    // }
+    // if (obj.isInteger()) {
       return gen._pushBigint(obj)
-    }
-    if (!(gen._pushTag(TAG.DECIMAL_FRAC) &&
-      gen._pushInt(2, MT.ARRAY))) {
-      return false
-    }
-
-    const dec = obj.decimalPlaces()
-    const slide = obj.multipliedBy(new Bignumber(10).pow(dec))
-    if (!gen._pushIntNum(-dec)) {
-      return false
-    }
-    if (slide.abs().isLessThan(MAXINT_BN)) {
-      return gen._pushIntNum(slide.toNumber())
-    } else {
-      return gen._pushBigint(slide)
-    }
+    // }
+    // if (!(gen._pushTag(TAG.DECIMAL_FRAC) &&
+    //   gen._pushInt(2, MT.ARRAY))) {
+    //   return false
+    // }
+    //
+    // const dec = obj.decimalPlaces()
+    // const slide = obj.multipliedBy(JSBI.pow(new JSBI.BigInt(10), dec))
+    // if (!gen._pushIntNum(-dec)) {
+    //   return false
+    // }
+    // if (slide.abs().isLessThan(MAXINT_BN)) {
+    //   return gen._pushIntNum(slide.toNumber())
+    // } else {
+    //   return gen._pushBigint(slide)
+    // }
   }
 
   _pushMap (gen, obj) {
