@@ -1,5 +1,5 @@
 {
-  "name": "borc",
+  "name": "borc-with-buffer",
   "version": "2.1.1",
   "description": "Encode and parse data in the Concise Binary Object Representation (CBOR) data format (RFC7049).",
   "main": "./src/index.js",
@@ -50,6 +50,7 @@
   "readmeFilename": "README.md",
   "dependencies": {
     "bignumber.js": "^9.0.0",
+    "buffer": "^5.4.3",
     "commander": "^2.15.0",
     "ieee754": "^1.1.8",
     "iso-url": "~0.4.4",
