@@ -1,4 +1,4 @@
-# borc
+# borc-with-buffer
 
 [![](https://img.shields.io/badge/made%20by-Protocol%20Labs-blue.svg?style=flat-square)](http://ipn.io)
 [![](https://img.shields.io/badge/project-IPFS-blue.svg?style=flat-square)](http://ipfs.io/)
@@ -8,19 +8,18 @@
 [![Travis CI](https://travis-ci.org/dignifiedquire/borc.svg?branch=master)](https://travis-ci.org/dignifiedquire/borc)
 [![Circle CI](https://circleci.com/gh/dignifiedquire/borc.svg?style=svg)](https://circleci.com/gh/dignifiedquire/borc)
 
-
 > Assimilate all your JavaScript objects into the Concise Binary Object Representation (CBOR) data format ([RFC7049](http://tools.ietf.org/html/rfc7049)) **as fast as possible**.
-
 
 ## About
 
 This library is a fork of the awesome [node-cbor](https://github.com/hildjj/node-cbor). It borrows a lot of the interface, but drops all streaming and async processing in favor of a minimal syn api and being as fast as possible.
 
+And borc-with-buffer is a fork with added Buffer support from buffer (https://www.npmjs.com/package/buffer) instead Node Buffer.
 
 ## Installation
 
 ```bash
-$ npm install --save borc
+$ npm install --save borc-with-buffer
 ```
 
 ## Benchmarks
@@ -30,18 +29,18 @@ TODO
 ## Example
 
 ```javascript
-const cbor = require('borc')
-const assert = require('assert')
+const cbor = require("borc-with-buffer");
+const assert = require("assert");
 
-const encoded = cbor.encode(true) // returns <Buffer f5>
-const decoded = cbor.decodeFirst(encoded)
+const encoded = cbor.encode(true); // returns <Buffer f5>
+const decoded = cbor.decodeFirst(encoded);
 // decoded is the unpacked object
-assert.ok(decoded === true)
+assert.ok(decoded === true);
 
 // Use integers as keys
-var m = new Map()
-m.set(1, 2)
-encoded = cbor.encode(m) // <Buffer a1 01 02>
+var m = new Map();
+m.set(1, 2);
+encoded = cbor.encode(m); // <Buffer a1 01 02>
 ```
 
 ## API
@@ -56,22 +55,22 @@ The sync encoding and decoding are exported as a
 
 The following types are supported for encoding:
 
-* boolean
-* number (including -0, NaN, and ±Infinity)
-* string
-* Array, Set (encoded as Array)
-* Object (including null), Map
-* undefined
-* Buffer
-* Date,
-* RegExp
-* url.URL
-* [bignumber](https://github.com/MikeMcl/bignumber.js)
+- boolean
+- number (including -0, NaN, and ±Infinity)
+- string
+- Array, Set (encoded as Array)
+- Object (including null), Map
+- undefined
+- Buffer
+- Date,
+- RegExp
+- url.URL
+- [bignumber](https://github.com/MikeMcl/bignumber.js)
 
 Decoding supports the above types, including the following CBOR tag numbers:
 
 | Tag | Generated Type |
-|-----|----------------|
+| --- | -------------- |
 | 0   | Date           |
 | 1   | Date           |
 | 2   | bignumber      |
@@ -81,7 +80,6 @@ Decoding supports the above types, including the following CBOR tag numbers:
 | 32  | url.URL        |
 | 35  | RegExp         |
 
-
 ## Customizations
 
 Borc supports custom tags as well as custom input types.
@@ -90,8 +88,8 @@ Borc supports custom tags as well as custom input types.
 
 ```js
 class MyType {
-  constructor (val) {
-    this.val = val
+  constructor(val) {
+    this.val = val;
   }
 
   // Gets called when encoding this object
@@ -99,18 +97,18 @@ class MyType {
   // obj - the object being encoded
   //
   // should return true on success and false otherwise
-  encodeCBOR (gen) {
-    return gen.pushAny('mytype:' + this.val)
+  encodeCBOR(gen) {
+    return gen.pushAny("mytype:" + this.val);
   }
 }
 
-cbor.encode([new MyType('hello')])
+cbor.encode([new MyType("hello")]);
 ```
 
 ### Encode Custom Tags
 
 ```js
-cbor.encode([new cbor.Tagged(42, 'hello')])
+cbor.encode([new cbor.Tagged(42, "hello")]);
 ```
 
 ### Decode Custom Tags
@@ -118,9 +116,9 @@ cbor.encode([new cbor.Tagged(42, 'hello')])
 ```js
 const decoder = new cbor.Decoder({
   tags: {
-    42: (val) => val + ' world'
+    42: val => val + " world"
   }
-})
+});
 ```
 
 ## License
